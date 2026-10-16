@@ -1,0 +1,16 @@
+services:
+  drone_swarm:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: drone_swarm
+    ports:
+      - "6080:80"     # Browser VNC Desktop: http://127.0.0.1:6080/
+      - "8888:8888"   # Jupyter Notebook (optional)
+    volumes:
+      - .:/ros2_ws
+    security_opt:
+      - seccomp=unconfined
+    shm_size: "2gb"
+    restart: unless-stopped
