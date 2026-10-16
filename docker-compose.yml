@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: drone_swarm
     ports:
-      - "6080:80"     # Browser VNC fallback for Windows/Mac teammates
+      - "6080:80"
       - "8888:8888"
     environment:
       - DISPLAY=${DISPLAY}
