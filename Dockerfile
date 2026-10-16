@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 tiryoh/ros2-desktop-vnc:jazzy
+FROM tiryoh/ros2-desktop-vnc:jazzy
 
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     lsb-release \
     dos2unix \
+    x11-apps \
     && curl https://packages.osrfoundation.org/gazebo.gpg \
        --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" \
@@ -34,9 +35,10 @@ RUN apt-get update && apt-get install -y \
 
 # 2. Auto-source ROS 2 Jazzy and our workspace in every terminal
 RUN for rc in /etc/bash.bashrc /home/ubuntu/.bashrc /root/.bashrc; do \
-        echo "source /opt/ros/jazzy/setup.bash" >> $rc && \
+        echo "umask 000" >> $rc && \
         echo "export GZ_VERSION=harmonic" >> $rc && \
         echo "export LIBGL_ALWAYS_SOFTWARE=1" >> $rc && \
+        echo "source /opt/ros/jazzy/setup.bash" >> $rc && \
         echo "if [ -f /ros2_ws/install/setup.bash ]; then source /ros2_ws/install/setup.bash; fi" >> $rc; \
     done
 
