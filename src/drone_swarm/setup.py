@@ -25,8 +25,10 @@ setup(
     description='6-DOF Quadrotor Swarm Formation Control in ROS 2 Jazzy',
     license='Apache-2.0',
     tests_require=['pytest'],
-    entry_points={
-        'console_scripts': [
-        ],
-    },
+        entry_points={
+      'console_scripts': [
+          'swarm_sim = drone_swarm.swarm_sim_node:main',
+          'swarm_controller = drone_swarm.swarm_controller_node:main',
+      ],
+  },
 )
